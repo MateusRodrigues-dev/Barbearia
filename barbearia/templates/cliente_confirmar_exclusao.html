@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block title %}Excluir Cliente{% endblock %}
+
+{% block content %}
+
+<div class="card shadow">
+
+    <div class="card-body text-center">
+
+        <h1 class="mb-4">
+            ⚠️ Excluir Cliente
+        </h1>
+
+        <p class="lead">
+            Tem certeza que deseja excluir o cliente
+            <strong>{{ cliente.nome }}</strong>?
+        </p>
+
+        <p class="text-muted">
+            Essa ação não poderá ser desfeita.
+        </p>
+
+        <form method="post" class="mt-4">
+            {% csrf_token %}
+
+            <a
+                href="{% url 'cliente_detalhes' cliente.id %}"
+                class="btn btn-secondary me-2"
+            >
+                Cancelar
+            </a>
+
+            <button type="submit" class="btn btn-danger">
+                🗑️ Sim, excluir
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}

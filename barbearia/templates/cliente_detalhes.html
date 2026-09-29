@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block title %}Detalhes do Cliente{% endblock %}
+
+{% block content %}
+
+<div class="card shadow">
+
+    <div class="card-body">
+
+        <h1 class="mb-4">
+            👤 {{ cliente.nome }}
+        </h1>
+
+        <p>
+            <strong>Telefone:</strong>
+            {{ cliente.telefone }}
+        </p>
+
+        <p>
+            <strong>E-mail:</strong>
+            {{ cliente.email|default:"Não informado" }}
+        </p>
+
+        <p>
+            <strong>Barbeiro:</strong>
+            {{ cliente.barbeiro|default:"Não informado" }}
+        </p>
+
+        <p>
+            <strong>Observações:</strong>
+            {{ cliente.observacoes|default:"Nenhuma observação" }}
+        </p>
+
+        <p>
+            <strong>Data de cadastro:</strong>
+            {{ cliente.data_cadastro|date:"d/m/Y H:i" }}
+        </p>
+
+        <hr>
+
+        <a href="{% url 'clientes' %}" class="btn btn-secondary">
+            ← Voltar
+        </a>
+
+        {% if user.is_authenticated %}
+
+            <a  href="{% url 'cliente_editar' cliente.id %}" class="btn btn-warning">
+                ✏️ Editar
+            </a>
+            
+
+            <a  href="{% url 'cliente_excluir' cliente.id %}"
+            class="btn btn-danger">
+            🗑️ Excluir
+            </a>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+{% endblock %}

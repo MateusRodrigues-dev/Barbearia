@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Início - Barbearia
+{% endblock %}
+
+{% block content %}
+
+<div class="text-center">
+
+    <h1 class="display-4">
+        💈 Bem-vindo à Barbearia
+    </h1>
+
+    <p class="lead mt-3">
+        Sistema de cadastro e gerenciamento de clientes.
+    </p>
+
+    <div class="mt-4">
+
+        <a
+            href="{% url 'cliente_criar' %}"
+            class="btn btn-dark btn-lg me-2"
+        >
+            Cadastrar Cliente
+        </a>
+
+        <a
+            href="{% url 'clientes' %}"
+            class="btn btn-outline-dark btn-lg"
+        >
+            Ver Clientes
+        </a>
+
+    </div>
+
+</div>
+
+{% endblock %}
