@@ -3,10 +3,21 @@ from .forms import ClienteForm
 from .models import Cliente
 from django.contrib.auth.decorators import login_required
 
+
 def home(request):
-    return render(request, 'home.html')
+    total_clientes = Cliente.objects.count()
+    ultimos_clientes = Cliente.objects.order_by('-data_cadastro')[:5]
 
+    return render(
+        request,
+        'home.html',
+        {
+            'total_clientes': total_clientes,
+            'ultimos_clientes': ultimos_clientes,
+        }
+    )
 
+@login_required
 def criar_cliente(request):
     if request.method == 'POST':
         form = ClienteForm(request.POST)
@@ -20,17 +31,25 @@ def criar_cliente(request):
 
     return render(request, 'cliente_form.html', {'form': form})
 
-
+@login_required
 def lista_clientes(request):
-    clientes = Cliente.objects.all()
+    busca = request.GET.get('busca', '')
+
+    if busca:
+        clientes = Cliente.objects.filter(nome__icontains=busca)
+    else:
+        clientes = Cliente.objects.all()
 
     return render(
         request,
         'clientes.html',
-        {'clientes': clientes}
+        {
+            'clientes': clientes,
+            'busca': busca,
+        }
     )
 
-
+@login_required
 def detalhe_cliente(request, id):
     cliente = get_object_or_404(Cliente, id=id)
 

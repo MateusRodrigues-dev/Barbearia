@@ -1,36 +1,203 @@
 {% extends 'base.html' %}
 
-{% block title %}
-Início - Barbearia
-{% endblock %}
+{% block title %}Dashboard - Barbearia{% endblock %}
 
 {% block content %}
 
-<div class="text-center">
+<div class="mb-5">
 
-    <h1 class="display-4">
-        💈 Bem-vindo à Barbearia
+    <h1 class="display-5 fw-bold">
+        💈 Dashboard
     </h1>
 
-    <p class="lead mt-3">
-        Sistema de cadastro e gerenciamento de clientes.
+    <p class="lead text-muted">
+        Bem-vindo ao sistema de gerenciamento da barbearia.
     </p>
 
-    <div class="mt-4">
+</div>
 
-        <a
-            href="{% url 'cliente_criar' %}"
-            class="btn btn-dark btn-lg me-2"
-        >
-            Cadastrar Cliente
-        </a>
 
-        <a
-            href="{% url 'clientes' %}"
-            class="btn btn-outline-dark btn-lg"
-        >
-            Ver Clientes
-        </a>
+<!-- CARDS -->
+
+<div class="row g-4 mb-5">
+
+    <div class="col-md-4">
+
+        <div class="card shadow-sm h-100">
+
+            <div class="card-body">
+
+                <div class="d-flex justify-content-between">
+
+                    <div>
+                        <h6 class="text-muted">
+                            CLIENTES
+                        </h6>
+
+                        <h2 class="fw-bold">
+                            {{ total_clientes }}
+                        </h2>
+                    </div>
+
+                    <div class="fs-1">
+                        👥
+                    </div>
+
+                </div>
+
+                <p class="text-muted mb-0">
+                    Clientes cadastrados
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="col-md-4">
+
+        <div class="card shadow-sm h-100">
+
+            <div class="card-body">
+
+                <div class="d-flex justify-content-between">
+
+                    <div>
+                        <h6 class="text-muted">
+                            CADASTRO
+                        </h6>
+
+                        <h2 class="fw-bold">
+                            +
+                        </h2>
+                    </div>
+
+                    <div class="fs-1">
+                        ➕
+                    </div>
+
+                </div>
+
+                <p class="text-muted mb-3">
+                    Adicionar novo cliente
+                </p>
+
+                <a
+                    href="{% url 'cliente_criar' %}"
+                    class="btn btn-dark"
+                >
+                    Cadastrar cliente
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="col-md-4">
+
+        <div class="card shadow-sm h-100">
+
+            <div class="card-body">
+
+                <div class="d-flex justify-content-between">
+
+                    <div>
+                        <h6 class="text-muted">
+                            GERENCIAMENTO
+                        </h6>
+
+                        <h2 class="fw-bold">
+                            📋
+                        </h2>
+                    </div>
+
+                    <div class="fs-1">
+                        💼
+                    </div>
+
+                </div>
+
+                <p class="text-muted mb-3">
+                    Visualizar clientes
+                </p>
+
+                <a
+                    href="{% url 'clientes' %}"
+                    class="btn btn-outline-dark"
+                >
+                    Ver clientes
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ÚLTIMOS CLIENTES -->
+
+<div class="card shadow-sm">
+
+    <div class="card-body">
+
+        <div class="d-flex justify-content-between align-items-center mb-4">
+
+            <h3 class="mb-0">
+                👥 Últimos clientes
+            </h3>
+
+            <a
+                href="{% url 'clientes' %}"
+                class="btn btn-sm btn-outline-dark"
+            >
+                Ver todos
+            </a>
+
+        </div>
+
+
+        {% for cliente in ultimos_clientes %}
+
+            <div class="d-flex justify-content-between align-items-center border-bottom py-3">
+
+                <div>
+
+                    <strong>
+                        {{ cliente.nome }}
+                    </strong>
+
+                    <br>
+
+                    <small class="text-muted">
+                        {{ cliente.telefone }}
+                    </small>
+
+                </div>
+
+                <a
+                    href="{% url 'cliente_detalhes' cliente.id %}"
+                    class="btn btn-sm btn-outline-secondary"
+                >
+                    Detalhes
+                </a>
+
+            </div>
+
+        {% empty %}
+
+            <p class="text-muted mb-0">
+                Nenhum cliente cadastrado ainda.
+            </p>
+
+        {% endfor %}
 
     </div>
 

@@ -1,44 +1,62 @@
 {% extends 'base.html' %}
 
-{% block title %}Excluir Cliente{% endblock %}
+{% block title %}Excluir Cliente - Barbearia{% endblock %}
 
 {% block content %}
 
-<div class="card shadow">
+<div class="row justify-content-center">
+    <div class="col-md-6">
 
-    <div class="card-body text-center">
+        <div class="card shadow-sm border-danger">
 
-        <h1 class="mb-4">
-            ⚠️ Excluir Cliente
-        </h1>
+            <div class="card-body p-4 text-center">
 
-        <p class="lead">
-            Tem certeza que deseja excluir o cliente
-            <strong>{{ cliente.nome }}</strong>?
-        </p>
+                <div class="mb-3">
+                    <span style="font-size: 50px;">⚠️</span>
+                </div>
 
-        <p class="text-muted">
-            Essa ação não poderá ser desfeita.
-        </p>
+                <h2 class="text-danger mb-3">
+                    Excluir cliente?
+                </h2>
 
-        <form method="post" class="mt-4">
-            {% csrf_token %}
+                <p class="mb-1">
+                    Você está prestes a excluir:
+                </p>
 
-            <a
-                href="{% url 'cliente_detalhes' cliente.id %}"
-                class="btn btn-secondary me-2"
-            >
-                Cancelar
-            </a>
+                <h4 class="fw-bold mb-3">
+                    {{ cliente.nome }}
+                </h4>
 
-            <button type="submit" class="btn btn-danger">
-                🗑️ Sim, excluir
-            </button>
+                <p class="text-muted">
+                    Essa ação não poderá ser desfeita.
+                </p>
 
-        </form>
+
+                <form method="post" class="d-flex justify-content-center gap-2 mt-4">
+
+                    {% csrf_token %}
+
+                    <a
+                        href="{% url 'cliente_detalhes' cliente.id %}"
+                        class="btn btn-outline-secondary"
+                    >
+                        ↩️ Cancelar
+                    </a>
+
+                    <button
+                        type="submit"
+                        class="btn btn-danger"
+                    >
+                        🗑️ Sim, excluir
+                    </button>
+
+                </form>
+
+            </div>
+
+        </div>
 
     </div>
-
 </div>
 
 {% endblock %}

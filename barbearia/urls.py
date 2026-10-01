@@ -25,11 +25,11 @@ urlpatterns = [
     'clientes/<int:id>/editar/',
     views.editar_cliente,
     name='cliente_editar'
-),
-path(
+    ),
+    path(
     'clientes/<int:id>/excluir/',
     views.excluir_cliente,
     name='cliente_excluir'
-),
-path('accounts/', include('django.contrib.auth.urls')),
+    ),
+    path('accounts/', include('django.contrib.auth.urls')),
 ]

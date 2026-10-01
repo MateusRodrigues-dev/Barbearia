@@ -1,64 +1,196 @@
 {% extends 'base.html' %}
 
-{% block title %}Detalhes do Cliente{% endblock %}
+{% block title %}Detalhes do Cliente - Barbearia{% endblock %}
 
 {% block content %}
 
-<div class="card shadow">
+<div class="row justify-content-center">
+    <div class="col-md-8">
 
-    <div class="card-body">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <h1 class="mb-1">👤 Cliente</h1>
+                <p class="text-muted mb-0">
+                    Detalhes do cadastro
+                </p>
+            </div>
 
-        <h1 class="mb-4">
-            👤 {{ cliente.nome }}
-        </h1>
-
-        <p>
-            <strong>Telefone:</strong>
-            {{ cliente.telefone }}
-        </p>
-
-        <p>
-            <strong>E-mail:</strong>
-            {{ cliente.email|default:"Não informado" }}
-        </p>
-
-        <p>
-            <strong>Barbeiro:</strong>
-            {{ cliente.barbeiro|default:"Não informado" }}
-        </p>
-
-        <p>
-            <strong>Observações:</strong>
-            {{ cliente.observacoes|default:"Nenhuma observação" }}
-        </p>
-
-        <p>
-            <strong>Data de cadastro:</strong>
-            {{ cliente.data_cadastro|date:"d/m/Y H:i" }}
-        </p>
-
-        <hr>
-
-        <a href="{% url 'clientes' %}" class="btn btn-secondary">
-            ← Voltar
-        </a>
-
-        {% if user.is_authenticated %}
-
-            <a  href="{% url 'cliente_editar' cliente.id %}" class="btn btn-warning">
-                ✏️ Editar
+            <a href="{% url 'clientes' %}" class="btn btn-outline-secondary">
+                ↩️ Voltar
             </a>
-            
+        </div>
 
-            <a  href="{% url 'cliente_excluir' cliente.id %}"
-            class="btn btn-danger">
-            🗑️ Excluir
-            </a>
 
-        {% endif %}
+        <div class="card shadow-sm">
+
+            <div class="card-body p-4">
+
+                <div class="mb-4">
+                    <h2 class="fw-bold mb-1">
+                        {{ cliente.nome }}
+                    </h2>
+
+                    <span class="text-muted">
+                        Cliente #{{ cliente.id }}
+                    </span>
+                </div>
+
+
+                <div class="row g-4">
+
+                    <!-- TELEFONE -->
+                    <div class="col-md-6">
+
+                        <div class="border rounded p-3 h-100">
+
+                            <small class="text-muted d-block">
+                                📱 Telefone
+                            </small>
+
+                            <strong>
+                                {{ cliente.telefone }}
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- E-MAIL -->
+                    <div class="col-md-6">
+
+                        <div class="border rounded p-3 h-100">
+
+                            <small class="text-muted d-block">
+                                📧 E-mail
+                            </small>
+
+                            {% if cliente.email %}
+
+                                <strong>
+                                    {{ cliente.email }}
+                                </strong>
+
+                            {% else %}
+
+                                <span class="text-muted">
+                                    Não informado
+                                </span>
+
+                            {% endif %}
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- BARBEIRO -->
+                    <div class="col-md-6">
+
+                        <div class="border rounded p-3 h-100">
+
+                            <small class="text-muted d-block">
+                                💈 Barbeiro
+                            </small>
+
+                            {% if cliente.barbeiro %}
+
+                                <strong>
+                                    {{ cliente.barbeiro }}
+                                </strong>
+
+                            {% else %}
+
+                                <span class="text-muted">
+                                    Não informado
+                                </span>
+
+                            {% endif %}
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- DATA -->
+                    <div class="col-md-6">
+
+                        <div class="border rounded p-3 h-100">
+
+                            <small class="text-muted d-block">
+                                📅 Cadastrado em
+                            </small>
+
+                            <strong>
+                                {{ cliente.data_cadastro|date:"d/m/Y H:i" }}
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- OBSERVAÇÕES -->
+                    <div class="col-12">
+
+                        <div class="border rounded p-3">
+
+                            <small class="text-muted d-block mb-2">
+                                📝 Observações
+                            </small>
+
+                            {% if cliente.observacoes %}
+
+                                <p class="mb-0">
+                                    {{ cliente.observacoes }}
+                                </p>
+
+                            {% else %}
+
+                                <span class="text-muted">
+                                    Nenhuma observação cadastrada.
+                                </span>
+
+                            {% endif %}
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- AÇÕES -->
+
+                {% if user.is_authenticated %}
+
+                    <hr class="my-4">
+
+                    <div class="d-flex gap-2">
+
+                        <a
+                            href="{% url 'cliente_editar' cliente.id %}"
+                            class="btn btn-warning"
+                        >
+                            ✏️ Editar cliente
+                        </a>
+
+                        <a
+                            href="{% url 'cliente_excluir' cliente.id %}"
+                            class="btn btn-danger"
+                        >
+                            🗑️ Excluir cliente
+                        </a>
+
+                    </div>
+
+                {% endif %}
+
+            </div>
+
+        </div>
 
     </div>
-
 </div>
 
 {% endblock %}
